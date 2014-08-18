@@ -6,7 +6,11 @@ value :: Char -> Int
 value c = fromJust . lookup c $ [
     ('I', 1),
     ('V', 5),
-    ('X', 10)]
+    ('X', 10),
+    ('L', 50),
+    ('C', 100),
+    ('D', 500),
+    ('M', 1000)]
 
 single :: Char -> Parser Int
 single c = do
@@ -20,13 +24,18 @@ pair small big = do
 
 roman :: Parser Int
 roman = do
-    x <- single 'X'
+    m <- single 'M'
+    d <- single 'D'
+    c <- try (pair 'C' 'M') <|> try (pair 'C' 'D') <|> (single 'C')
+    l <- single 'L'
+    x <- try (pair 'X' 'C') <|> try (pair 'X' 'L') <|> (single 'X')
     v <- single 'V'
     i <- try (pair 'I' 'X') <|> try (pair 'I' 'V') <|> (single 'I')
     eof
-    return $ x + v + i
+    return $ m + d + c + l + x + v + i
 
 main = do
     print $ parse roman "fail" "XVII"
     print $ parse roman "fail" "IV"
     print $ parse roman "fail" "IX"
+    print $ parse roman "fail" "MMCDXLVI"
