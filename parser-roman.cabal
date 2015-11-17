@@ -25,3 +25,14 @@ library
                      , text
   hs-source-dirs:      src
   default-language:    Haskell2010
+
+Test-Suite Roman-Unit-Test
+  type:               exitcode-stdio-1.0
+  hs-source-dirs:     test
+  main-is:            Tests.hs
+  default-language:   Haskell2010
+  build-depends:      base
+                    , parser-roman
+                    , HUnit
+                    , attoparsec
+                    , text
