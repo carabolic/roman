@@ -1,16 +1,16 @@
+module Roman (roman) where
+
 import Text.Parsec
 import Text.Parsec.String
-import Data.Maybe (fromJust)
 
 value :: Char -> Int
-value c = fromJust . lookup c $ [
-    ('I', 1),
-    ('V', 5),
-    ('X', 10),
-    ('L', 50),
-    ('C', 100),
-    ('D', 500),
-    ('M', 1000)]
+value 'I' = 1
+value 'V' = 5
+value 'X' = 10
+value 'L' = 50
+value 'C' = 100
+value 'D' = 500
+value 'M' =1000
 
 single :: Char -> Parser Int
 single c = do
@@ -19,7 +19,7 @@ single c = do
 
 pair :: Char -> Char -> Parser Int
 pair small big = do
-    string $ small:big:""
+    string $ small : big: ""
     return $ value big - value small
 
 roman :: Parser Int
@@ -31,7 +31,6 @@ roman = do
     x <- try (pair 'X' 'C') <|> try (pair 'X' 'L') <|> (single 'X')
     v <- single 'V'
     i <- try (pair 'I' 'X') <|> try (pair 'I' 'V') <|> (single 'I')
-    eof
     return $ m + d + c + l + x + v + i
 
 main = do
