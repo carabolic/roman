@@ -1,7 +1,11 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Roman (roman) where
 
-import Text.Parsec
-import Text.Parsec.String
+import Control.Applicative ((<|>), many)
+
+import Data.Attoparsec.Text
+import Data.Text (Text, cons)
 
 value :: Char -> Int
 value 'I' = 1
@@ -19,7 +23,7 @@ single c = do
 
 pair :: Char -> Char -> Parser Int
 pair small big = do
-    string $ small : big: ""
+    string $ small `cons` big `cons` ""
     return $ value big - value small
 
 roman :: Parser Int
@@ -34,7 +38,7 @@ roman = do
     return $ m + d + c + l + x + v + i
 
 main = do
-    print $ parse roman "fail" "XVII"
-    print $ parse roman "fail" "IV"
-    print $ parse roman "fail" "IX"
-    print $ parse roman "fail" "MMCDXLVI"
+    print $ parse roman "XVII"
+    print $ parse roman "IV"
+    print $ parse roman "IX"
+    print $ parse roman "MMCDXLVI"
