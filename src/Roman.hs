@@ -36,9 +36,3 @@ roman = do
     v <- single 'V'
     i <- try (pair 'I' 'X') <|> try (pair 'I' 'V') <|> (single 'I')
     return $ m + d + c + l + x + v + i
-
-main = do
-    print $ parse roman "XVII"
-    print $ parse roman "IV"
-    print $ parse roman "IX"
-    print $ parse roman "MMCDXLVI"
