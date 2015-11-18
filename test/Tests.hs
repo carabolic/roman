@@ -16,8 +16,8 @@ expectedValues = [
   , ("MMMMM", 5000)]
 
 testExpectedValues :: [Test]
-testExpectedValues = map (\(r, n) -> TestLabel ("parse \"" ++ r ++ "\"")
-                                     $ Right n ~=? parseOnly roman (pack r))
+testExpectedValues = map (\(r, n) -> ("parse \"" ++ r ++ "\"")
+                                     ~: Right n ~=? parseOnly roman (pack r))
                      expectedValues
 
 main :: IO ()
