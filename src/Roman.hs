@@ -14,7 +14,7 @@ value 'X' = 10
 value 'L' = 50
 value 'C' = 100
 value 'D' = 500
-value 'M' =1000
+value 'M' = 1000
 
 single :: Char -> Parser Int
 single c = do
@@ -30,9 +30,9 @@ roman :: Parser Int
 roman = do
     m <- single 'M'
     d <- single 'D'
-    c <- try (pair 'C' 'M') <|> try (pair 'C' 'D') <|> (single 'C')
+    c <- try (pair 'C' 'M') <|> try (pair 'C' 'D') <|> single 'C'
     l <- single 'L'
-    x <- try (pair 'X' 'C') <|> try (pair 'X' 'L') <|> (single 'X')
+    x <- try (pair 'X' 'C') <|> try (pair 'X' 'L') <|> single 'X'
     v <- single 'V'
-    i <- try (pair 'I' 'X') <|> try (pair 'I' 'V') <|> (single 'I')
+    i <- try (pair 'I' 'X') <|> try (pair 'I' 'V') <|> single 'I'
     return $ m + d + c + l + x + v + i
