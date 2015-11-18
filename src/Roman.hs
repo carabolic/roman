@@ -26,6 +26,8 @@ pair small big = do
     string $ small `cons` big `cons` ""
     return $ value big - value small
 
+-- |An attoparsec parser that parses a string of roman numerals (e.g., \"VI\")
+-- into an 'Int'.
 roman :: Parser Int
 roman = do
     m <- single 'M'
