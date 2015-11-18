@@ -20,7 +20,7 @@ library
   exposed-modules:     Roman
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base >=4.7 && <4.8
+  build-depends:       base
                      , attoparsec
                      , text
   hs-source-dirs:      src
