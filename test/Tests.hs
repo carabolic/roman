@@ -2,6 +2,8 @@ module Main where
 
 import Data.Attoparsec.Text
 import Data.Text (Text, pack)
+import Test.Framework (defaultMain)
+import Test.Framework.Providers.HUnit
 import Test.HUnit
 
 import Roman
@@ -14,13 +16,10 @@ expectedValues = [
   , ("MMMMM", 5000)]
 
 testExpectedValues :: [Test]
-testExpectedValues = map (\(r, n) -> TestLabel ("Test" ++ r)
-                                     $ TestCase
-                                     $ assertBool ""
-                                     $ parseOnly roman (pack r) == Right n)
+testExpectedValues = map (\(r, n) -> TestLabel ("parse \"" ++ r ++ "\"")
+                                     $ Right n ~=? parseOnly roman (pack r))
                      expectedValues
 
 main :: IO ()
 main = do
-  _ <- runTestTT $ TestList testExpectedValues
-  return ()
+  defaultMain $ hUnitTestToTests $ TestList testExpectedValues
