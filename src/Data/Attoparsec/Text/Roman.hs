@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Roman (roman) where
+module Data.Attoparsec.Text.Roman (roman) where
 
 import Control.Applicative ((<|>), many)
 

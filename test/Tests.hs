@@ -6,7 +6,7 @@ import Test.Framework (defaultMain)
 import Test.Framework.Providers.HUnit
 import Test.HUnit
 
-import Roman
+import Data.Attoparsec.Text.Roman
 
 expectedValues = [
     ("XVII", 17)
@@ -16,7 +16,7 @@ expectedValues = [
   , ("MMMMM", 5000)]
 
 testExpectedValues :: [Test]
-testExpectedValues = map (\(r, n) -> ("parse \"" ++ r ++ "\"")
+testExpectedValues = map (\(r, n) -> ("parse \"" ++ r ++ "\" = " ++ show n)
                                      ~: Right n ~=? parseOnly roman (pack r))
                      expectedValues
 
