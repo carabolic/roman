@@ -1,8 +1,39 @@
-Series of examples for parsing roman numerals with parsec.
+# attoparsec-roman #
 
-Clone the repo and get started with 
-    cabal install parsec
-    runhaskell 01.hs
+An Attoparsec parser library for roman numerals.
 
-For a great high level introduction to the semantics of parsec, see:
-http://blog.jakubarnold.cz/2014/08/10/parsing-css-with-parsec.html
+## Examples ##
+
+The following section gives an overview on a simple use case for
+`attoparsec-roman` and `ghci`.
+
+At first we need a `ghci` session:
+
+``` bash
+ghci
+```
+
+In order to parse roman literals the following modules need to be imported:
+
+``` haskell
+*X> import Data.Attoparsec.Text
+*X> import Data.Attoparsec.Text.Roman
+```
+
+Now we can access the attoparsec `Text` based parser and the parser for roman
+numerals `roman`.
+
+For easy usage of `Text` it is suggested to use the `OverloadedStrings` language
+pragma:
+
+``` haskell
+*X> :set -XOverloadedStrings
+```
+
+Now we can parse any roman numeral using the `roman` parser:
+
+``` haskell
+*X> parseOnly roman "CCXIV"
+Right 214
+```
+
